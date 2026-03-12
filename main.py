@@ -1,7 +1,7 @@
 from fastapi import FastAPI, Request, status
-from .models import Base
-from .database import engine
-from .routers import auth, todos, admin, users
+from models import Base
+from database import engine
+from routers import auth, todos, admin, users
 # from fastapi.templating import Jinja2Templates
 from fastapi.staticfiles import StaticFiles
 from pathlib import Path

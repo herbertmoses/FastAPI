@@ -2,10 +2,10 @@ from datetime import datetime, timedelta
 
 from fastapi import FastAPI, APIRouter, Depends, HTTPException, Request
 from pydantic import BaseModel
-from ..models import Users
+from models import Users
 from passlib.context import CryptContext
 from sqlalchemy.orm import Session
-from ..database import SessionLocal
+from database import SessionLocal
 from typing import Annotated
 from starlette import status
 from fastapi.security import OAuth2PasswordRequestForm, OAuth2PasswordBearer

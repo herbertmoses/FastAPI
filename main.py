@@ -7,6 +7,20 @@ from fastapi.staticfiles import StaticFiles
 from pathlib import Path
 from fastapi.exceptions import RequestValidationError
 from fastapi.responses import JSONResponse, RedirectResponse
+from database import SessionLocal
+from models import Users
+from fastapi import APIRouter
+
+debug_router = APIRouter()
+
+@debug_router.get("/debug-users")
+def debug_users():
+    db = SessionLocal()
+    try:
+        users = db.query(Users).all()
+        return {"users": [u.username for u in users]}
+    finally:
+        db.close()
 
 app = FastAPI()
 
@@ -52,6 +66,7 @@ app.include_router(auth.router)
 app.include_router(todos.router)
 app.include_router(admin.router)
 app.include_router(users.router)
+app.include_router(debug_router)
 
 # Base.metadata.create_all(bind=engine)
 

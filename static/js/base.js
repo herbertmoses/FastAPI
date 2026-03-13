@@ -126,22 +126,24 @@ document.addEventListener("DOMContentLoaded", function () {
         
     }
 
-    // Login JS
+// Login JS
     const loginForm = document.getElementById('loginForm');
+    
     if (loginForm) {
         loginForm.addEventListener('submit', async function (event) {
             event.preventDefault();
-
+    
             const form = event.target;
             const formData = new FormData(form);
-
+    
             const payload = new URLSearchParams();
             for (const [key, value] of formData.entries()) {
                 payload.append(key, value);
             }
-
+    
             try {
-                console.log("Payload being sent:", payload);
+                console.log("Payload being sent:", payload.toString());
+    
                 const response = await fetch('/auth/token', {
                     method: 'POST',
                     headers: {
@@ -149,27 +151,33 @@ document.addEventListener("DOMContentLoaded", function () {
                     },
                     body: payload.toString()
                 });
-
+    
                 if (response.ok) {
-                    // Handle success (e.g., redirect to dashboard)
                     const data = await response.json();
-                    // Delete any cookies available
-                    logout();
-                    // Save token to cookie
-                    document.cookie = `access_token=${data.access_token}; path=/`;
-                    window.location.href = '/todos/todo-page'; // Change this to your desired redirect page
+    
+                    // Save JWT in cookie
+                    document.cookie = `access_token=${data.access_token}; path=/; SameSite=Lax`;
+    
+                    // Redirect after login
+                    window.location.href = '/todos/todo-page';
+    
                 } else {
-                    // Handle error
-                    const errorData = await response.json();
-                    alert(`Error: ${errorData.detail}`);
+    
+                    let errorMessage = "Login failed";
+                    try {
+                        const errorData = await response.json();
+                        errorMessage = errorData.detail || errorMessage;
+                    } catch (e) {}
+    
+                    alert(`Error: ${errorMessage}`);
                 }
+    
             } catch (error) {
                 console.error('Error:', error);
                 alert('An error occurred. Please try again.');
             }
         });
     }
-
     // Register JS
     // const registerForm = document.getElementById('registerForm');
     // if (registerForm) {

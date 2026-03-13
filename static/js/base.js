@@ -1,7 +1,6 @@
 document.addEventListener("DOMContentLoaded", function () {
 
     console.log("base.js loaded");
-});
 // Add Todo JS
     const todoForm = document.getElementById('todoForm');
     if (todoForm) {
@@ -178,58 +177,6 @@ document.addEventListener("DOMContentLoaded", function () {
             }
         });
     }
-    // Register JS
-    // const registerForm = document.getElementById('registerForm');
-    // if (registerForm) {
-    //     registerForm.addEventListener('submit', async function (event) {
-    //         event.preventDefault();
-
-    //         const form = event.target;
-    //         const formData = new FormData(form);
-    //         const data = Object.fromEntries(formData.entries());
-
-    //         if (data.password !== data.password2) {
-    //             alert("Passwords do not match");
-    //             return;
-    //         }
-
-    //         const payload = {
-    //             email: data.email,
-    //             username: data.username,
-    //             first_name: data.first_name,
-    //             last_name: data.last_name,
-    //             role: data.role,
-    //             phone_number: data.phone_number,
-    //             password: data.password
-    //         };
-
-    //         try {
-    //             console.log("Payload being sent:", payload);
-    //             console.log("Form data:", data);
-    //             const response = await fetch('/auth/', {
-    //                 method: 'POST',
-    //                 headers: {
-    //                     'Content-Type': 'application/json'
-    //                 },
-    //                 body: JSON.stringify(payload)
-    //             });
-
-    //             if (response.ok) {
-    //                 window.location.href = '/auth/login-page';
-    //             } else {
-    //                 // Handle error
-    //                 // const errorData = await response.json();
-    //                 // alert(`Error: ${errorData.message}`);
-    //                 const errorData = await response.json();
-    //                 console.log(errorData);
-    //                 alert(JSON.stringify(errorData));
-    //             }
-    //         } catch (error) {
-    //             console.error('Error:', error);
-    //             alert('An error occurred. Please try again.');
-    //         }
-    //     });
-    // }
 
     // Register JS
     const registerForm = document.getElementById('registerForm');
@@ -283,9 +230,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
     }
 
-
-
-
     // Helper function to get a cookie by name
     function getCookie(name) {
         let cookieValue = null;
@@ -318,3 +262,4 @@ document.addEventListener("DOMContentLoaded", function () {
         // Redirect to the login page
         window.location.href = '/auth/login-page';
     };
+});

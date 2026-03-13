@@ -2,7 +2,9 @@ from sqlalchemy import create_engine
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
 from pathlib import Path
+import os
 
+print("Working directory:", os.getcwd())
 # SQLALCHEMY_DATABASE_URL = "sqlite:///./todosapp.db"
 # # SQLALCHEMY_DATABASE_URL = "postgresql://postgres:4342@localhost/TodoApplicationDatabase"
 
@@ -24,4 +26,3 @@ engine = create_engine(
 
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 Base = declarative_base()
-

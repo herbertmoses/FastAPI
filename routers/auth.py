@@ -88,13 +88,17 @@ def authenticate_user(username: str, password: str, db):
 
     print("User found:", user.username)
 
-    if not bcrypt_context.verify(password, user.hashed_password):
-        print("Password mismatch")
+    try:
+        if not bcrypt_context.verify(password, user.hashed_password):
+            print("Password mismatch")
+            return False
+    except ValueError as e:
+        print("Bcrypt error:", e)
         return False
 
     print("Password correct")
     return user
-
+    
 def create_access_token(username: str, user_id: int, role: str, expires_delta: timedelta):
     encode = {"sub": username, "id": user_id, "role": role}
     expires = datetime.utcnow() + expires_delta

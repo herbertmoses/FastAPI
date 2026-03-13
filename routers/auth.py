@@ -69,12 +69,30 @@ def render_register_page(request: Request):
 
 ### Endpoints ###
 
+# def authenticate_user(username: str, password: str, db):
+#     user = db.query(Users).filter(Users.username == username).first()
+#     if not user:
+#         return False
+#     if not bcrypt_context.verify(password, user.hashed_password):
+#         return False
+#     return user
+
 def authenticate_user(username: str, password: str, db):
+    print("Login attempt:", username)
+
     user = db.query(Users).filter(Users.username == username).first()
+
     if not user:
+        print("User not found")
         return False
+
+    print("User found:", user.username)
+
     if not bcrypt_context.verify(password, user.hashed_password):
+        print("Password mismatch")
         return False
+
+    print("Password correct")
     return user
 
 def create_access_token(username: str, user_id: int, role: str, expires_delta: timedelta):

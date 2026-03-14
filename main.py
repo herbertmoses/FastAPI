@@ -22,12 +22,18 @@ def debug_users():
     finally:
         db.close()
 
-@router.get("/debug-passwords")
+@debug_router.get("/debug-passwords")
 def debug_passwords():
     db = SessionLocal()
-    users = db.query(Users).all()
-    return [{"username": u.username, "hash": u.hashed_password} for u in users]
-
+    try:
+        users = db.query(Users).all()
+        return [
+            {"username": u.username, "hash": u.hashed_password}
+            for u in users
+        ]
+    finally:
+        db.close()
+        
 app = FastAPI()
 
 Base.metadata.create_all(bind=engine)

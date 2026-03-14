@@ -161,10 +161,21 @@ async def create_user(db: db_dependency, create_user_request: CreateUserRequest)
         phone_number=create_user_request.phone_number
     )
 
+    existing_user = db.query(Users).filter(
+    (Users.username == create_user_request.username) |
+    (Users.email == create_user_request.email)).first()
+
+    if existing_user:
+        raise HTTPException(
+            status_code=400,
+            detail="User with this username or email already exists"
+        )
+
     # print(create_user_request)
 
     db.add(create_user_model)
     db.commit()
+    db.refresh(create_user_model)
 
     return {"message": "User created successfully"}
 

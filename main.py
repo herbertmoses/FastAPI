@@ -81,15 +81,3 @@ app.include_router(users.router)
 app.include_router(debug_router)
 
 # Base.metadata.create_all(bind=engine)
-
-# if __name__ == "__main__":
-#     import uvicorn
-#     uvicorn.run("main:app", reload=True)
-
-# if __name__ == "__main__":
-#     import uvicorn
-#     uvicorn.run(app, host="127.0.0.1", port=8000, reload=True)
-
-# if __name__ == "__main__":
-#     import uvicorn
-#     uvicorn.run("FastAPI_Course.TodoApp_New.main:app", reload=True)

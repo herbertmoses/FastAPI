@@ -10,6 +10,10 @@ from fastapi.responses import JSONResponse, RedirectResponse
 from database import SessionLocal
 from models import Users
 from fastapi import APIRouter
+import sys
+import bcrypt
+import passlib
+import fastapi
 
 debug_router = APIRouter()
 
@@ -33,7 +37,16 @@ def debug_passwords():
         ]
     finally:
         db.close()
-        
+
+@debug_router.get("/debug-env")
+def debug_environment():
+    return {
+        "python_version": sys.version,
+        "fastapi_version": fastapi.__version__,
+        "passlib_version": passlib.__version__,
+        "bcrypt_version": getattr(bcrypt, "__version__", "unknown"),
+    }
+
 app = FastAPI()
 
 Base.metadata.create_all(bind=engine)
